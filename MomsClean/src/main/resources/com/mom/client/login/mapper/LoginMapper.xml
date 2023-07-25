@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mom.client.login.mapper.LoginMapper">
+	 <!-- 로그인 정보 조회 -->
+    <select id="getLoginInfo" resultType="com.mom.client.user.User">
+        SELECT 
+        userNo as userNo,
+        userId as userId, 
+        userPw as userPw,
+        userName as userName,
+        userPhone as userPhone,
+        userEmail as userEmail,
+        emailAuth as emailAuth,
+        userDivision as userDivision
+        FROM User_tbl
+        WHERE userId = #{userId}
+    </select>
+
+    <!-- 로그인 정보 저장 -->
+    <insert id="saveLoginInfo" parameterType="com.mom.client.user.User">
+        INSERT INTO User_tbl 
+        (
+        user_id, 
+        userPw
+        )
+        VALUES 
+        (
+        #{username}, 
+        #{password}
+        )
+    </insert>
+</mapper>
