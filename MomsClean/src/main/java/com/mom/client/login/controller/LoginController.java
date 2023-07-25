@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,29 +36,28 @@ public class LoginController {
 
 	}
 
-	// 로그인 처리를 수행하는 메서드
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public void processLogin(String username, String password, HttpSession session, Model model,HttpServletRequest request) {
-		// 여기서 로그인 처리 로직을 구현
-		log.info(username);
-		UserInfo userInfo = userService.getUserByIdAndPassword(username, password);
+	 // 로그인 처리를 수행하는 메서드
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ResponseEntity<String> processLogin(String username, String password, HttpSession session, HttpServletRequest request) {
+        // 여기서 로그인 처리 로직을 구현
 
-	    if (userInfo != null && userInfo.getUserId().equals(username) && userInfo.getUserPw().equals(password)) {
-	        // 로그인 성공 시 기존 세션을 무효화
-	        //session.invalidate();
+        UserInfo userInfo = userService.getUserByIdAndPassword(username, password);
 
-	        // 새로운 세션 생성
-	        HttpSession newSession = session;
-	        newSession.setAttribute("user", userInfo);
-	        UserInfo userInfo2 = (UserInfo)session.getAttribute("user");
-	        log.info( userInfo2.getUserId());
-	        // 로그인 성공 시 마이페이지로 이동
-	         // 마이페이지 경로로 리다이렉트
-	    } else {
-	        // 로그인 실패 시 에러 메시지를 모델에 추가하고 다시 로그인 페이지로 이동
-	        model.addAttribute("error", "아이디 또는 비밀번호가 올바르지 않습니다.");
-	       
-	    }
+        if (userInfo != null && userInfo.getUserId().equals(username) && userInfo.getUserPw().equals(password)) {
+            // 로그인 성공 시 기존 세션을 무효화
+            // session.invalidate();
+
+            // 새로운 세션 생성
+            HttpSession newSession = request.getSession();
+            newSession.setAttribute("user", userInfo);
+            UserInfo userInfo2 = (UserInfo) newSession.getAttribute("user");
+            log.info(userInfo2.getUserId());
+            // 로그인 성공 시 클라이언트에게 성공 응답을 보냄
+            return ResponseEntity.ok("로그인 성공");
+        } else {
+            // 로그인 실패 시 클라이언트에게 실패 응답을 보냄
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("아이디 또는 비밀번호가 올바르지 않습니다.");
+        }
 	    
 	}
 

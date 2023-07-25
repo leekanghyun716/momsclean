@@ -7,4 +7,6 @@ public interface UserService {
 	void registerUser(User user);
 
 	UserInfo getUserByIdAndPassword(String userId, String userPw);
+	
+	
 }

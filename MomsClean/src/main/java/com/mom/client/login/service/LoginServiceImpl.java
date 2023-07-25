@@ -3,6 +3,7 @@ package com.mom.client.login.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mom.client.user.User;
 import com.mom.client.user.service.UserService;
 
 @Service
