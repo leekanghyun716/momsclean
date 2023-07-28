@@ -452,7 +452,7 @@
 					var reserveAddrValue = $("#member_post").val();
 
 					// cleanDate 값 읽기
-					var cleanDateValue = $("#date").val();
+					var cleanDateValue = $("#datepicker").val();
 
 					// 값이 없을 경우 alert 띄우기
 					if (!reserveAddrValue) {
