@@ -45,5 +45,11 @@ public class ReserveServiceImpl implements ReserveService{
 		return mapper.getOptionPrice(itemName);
 	}
 
+	@Override
+	public List<Reserve> getDate() throws Exception {
+		// TODO Auto-generated method stub
+		return mapper.getDate();
+	}
+
 
 }

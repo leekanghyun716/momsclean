@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -100,12 +102,14 @@ public class ReserveController {
 		reserve.setUserId(user.getUserId());
 		reserve.setUserName(user.getUserName());
 		reserve.setUserNo(user.getUserNo());
+		
 		model.addAttribute(reserve);
+		
 	}
 
 	@RequestMapping(value = "/reserveRegister", method = RequestMethod.POST)
-	public void register(Reserve reserve, Model model, HttpSession session) throws Exception {
-
+	public String register(Reserve reserve, Model model, HttpSession session) throws Exception {
+		
 		log.info(reserve.getReserveOptionName());
 		log.info(reserve.getReserveOptionName2());
 		log.info(reserve.getReserveOptionName3());
@@ -150,7 +154,14 @@ public class ReserveController {
 		}
 
 		String[] addr = reserve.getReserveAddr().split(",");
-		String addr2 = addr[0] + " " + addr[1] + " " + addr[2] + " " + addr[3];
+		String addr2 =null;
+		if(addr.length==2) {
+			addr2 = addr[0] + " " + addr[1];
+		}else if(addr.length==3) {
+			addr2 = addr[0] + " " + addr[1] + " " + addr[2];
+		}else {
+			addr2 = addr[0] + " " + addr[1] + " " + addr[2] + " " + addr[3];
+		}
 		reserve.setReserveOptionName(reserveOption);
 		reserve.setReserveAddr(addr2);
 
@@ -238,44 +249,36 @@ public class ReserveController {
 		reserve.setReserveOptionPrice(totalOptionPrice);
 		log.info(Integer.toString(reserve.getReserveOptionPrice()));
 		reserveService.reserveRegister(reserve);
+		
+		return "redirect:/client/page";
 	}
-
+	@RequestMapping(value = "/getDisabledDates", method = RequestMethod.POST)
 	@ResponseBody
-	@RequestMapping("/display")
-	public ResponseEntity<byte[]> displayFile(String itemNo) throws Exception {
-		InputStream in = null;
-		ResponseEntity<byte[]> entity = null;
-		String fileName = service.getPicture(itemNo);
-		try {
-			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
-			MediaType mType = getMediaType(formatName);
-			HttpHeaders headers = new HttpHeaders();
-			in = new FileInputStream(uploadPath + File.separator + fileName);
-			if (mType != null) {
-				headers.setContentType(mType);
+	public List<String> getDisabledDates() throws Exception{
+	    // Your code to retrieve the list of dates to be disabled
+		List<Reserve> reserve = reserveService.getDate();
+		List<String> disabledDates = new ArrayList<>();
+		log.info(reserve.get(0).getCleanDate());
+		for(int i=0;i<reserve.size();i++) {
+			Reserve reserve2=reserve.get(i);
+			String[] reserveStr = reserve2.getCleanDate().split("-");
+			String[] reserveStr2 = reserveStr[2].split(" ");
+			String[] reserveStr3;
+			if(reserveStr[1].equals("11")||reserveStr[1].equals("12")||reserveStr[1].equals("10")) {
+				reserveStr[1] = reserveStr[1];
+			}else {
+				reserveStr3=reserveStr[1].split("0");
+				reserveStr[1] = reserveStr3[1];
 			}
-			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
-		} finally {
-			in.close();
+			Integer integerNumber = Integer.parseInt(reserveStr2[0]);
+			if(integerNumber<10) {
+				String[] reserveStr4=reserveStr2[0].split("0");
+				reserveStr[2]=reserveStr4[1];
+			}
+			String reserveStr5 = reserveStr[0]+"-"+reserveStr[1]+"-"+reserveStr[2];
+			disabledDates.add(reserveStr5);
 		}
-		return entity;
-	}
-
-	private MediaType getMediaType(String formatName) {
-		if (formatName != null) {
-			if (formatName.equals("JPG")) {
-				return MediaType.IMAGE_JPEG;
-			}
-			if (formatName.equals("GIF")) {
-				return MediaType.IMAGE_GIF;
-			}
-			if (formatName.equals("PNG")) {
-				return MediaType.IMAGE_PNG;
-			}
-		}
-		return null;
+	    // Add more dates if needed
+	    return disabledDates;
 	}
 }

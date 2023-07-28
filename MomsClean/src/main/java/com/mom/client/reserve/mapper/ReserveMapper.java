@@ -21,5 +21,7 @@ public interface ReserveMapper {
 
 	public Option getOptionPrice(String itemName);
 	
+	public List<Reserve> getDate() throws Exception;
+	
 	
 }

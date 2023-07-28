@@ -16,34 +16,124 @@
 	max-height: 300px;
 	object-fit: cover;
 }
+.product-img {
+        max-width: 300px;
+        max-height: 300px;
+        object-fit: cover;
+    }
 
-.itemList {
-	border-left: 1px solid black;
-	border-right: 1px solid black;
-	width: 1080px;
-	height: 1800px;
-	margin: auto;
-}
+    .itemList {
+        width: 1080px;
+        height: 2000px;
+        margin: auto;
+        padding: 20px;
+        background-color: #f2f2f2;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    }
 
-table {
-	float: left;
-	margin-left: 50px;
-}
+    .itemTableImg {
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+    }
 
-footer {
-	float: none;
-}
+    footer {
+        float: none;
+    }
 
-.itemInfoImg{
-	width: 530px;
-}
-.itemTable{
-	float:none;
-	margin:0px;
-}
+    .itemInfoImg {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .itemTable {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .itemTable td {
+        vertical-align: middle;
+    }
+
+    #optionDiv {
+        float: left;
+        width: 100%;
+        height: 1130px;
+        margin: auto;
+    }
+
+    hr {
+        border: none;
+        border-top: 1px solid #ccc;
+        margin: 20px 0;
+    }
+
+    /* Modal 스타일 */
+    .modal-dialog {
+        max-width: 600px;
+    }
+
+    .modal-content {
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-header {
+        background-color: #f2f2f2;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .modal-footer {
+        border-top: none;
+        padding: 10px 20px;
+        text-align: right;
+        background-color: #f2f2f2;
+        border-radius: 0 0 10px 10px;
+    }
+
+    /* 예약하기 버튼 스타일 */
+    #modalSubmit {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        margin-right: 10px;
+        border-radius: 5px;
+        padding: 10px 20px;
+    }
+
+    #modalSubmit:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-default {
+        background-color: #f2f2f2;
+        color: #333;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 5px;
+        padding: 10px 20px;
+    }
+
+    .btn-default:hover {
+        background-color: #e6e6e6;
+    }
 .option{
 	width: 600px;
-	margin-left:100px;
+	margin-left:0px;
 	
 }
 #optionDiv{
@@ -58,19 +148,19 @@ border:1px solid black;
 </style>
 
 <div class="itemList">
-<h2>상품정보</h2>
+<h2><b>상품정보</b></h2>
 	<c:choose>
 		<c:when test="${empty list}">
 			<p>상품이 없습니다.</p>
 		</c:when>
 		<c:otherwise>
 			<c:forEach items="${list}" var="item">
-				<table>
+				<table class="itemTableImg">
 
 					<tr>
 						<td align="center"><img class="product-img"
-							src="display?itemNo=${item.itemNo}" data-toggle="modal"
-							alt="${item.itemNo}">
+							src="/img${item.itemImgThumb}" data-toggle="modal"
+							alt="/img${item.itemImg},${item.itemNo}">
 							 <!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
 	<div class="modal-dialog">
@@ -85,7 +175,7 @@ border:1px solid black;
 					<tr>
 						<td>
 							<img class="itemInfoImg"
-							src="display2?itemNo=${item.itemNo}"  data-toggle="modal">
+							src="/img${item.itemImg}"  data-toggle="modal">
 						</td>
 					</tr>					
 				</table>
@@ -105,7 +195,7 @@ border:1px solid black;
 		</c:otherwise>
 	</c:choose>
 	<div id="optionDiv"><img class="option"
-							src="display3"  data-toggle="modal"></div>
+							src="/img/option/option.png"></div>
 	
 </div>
 <script type="text/javascript">
@@ -114,11 +204,15 @@ border:1px solid black;
 
 	$(document).ready(function() {
 			var itemName2;
+			var itemArr;
+			var uid = '<%=session.getAttribute("user")%>';
 		// 새 글 쓰기 버튼 클릭
 		$(".product-img").click(function() {
+
 			var itemName = $(this).attr("alt");
 			itemName2= $(this).attr("alt");
-			$(".itemInfoImg").attr("src", "display2?itemNo="+itemName);
+			itemArr = itemName.split(",");
+			$(".itemInfoImg").attr("src",itemArr[0]);
 			action = 'create';
 			type = 'POST'
 			$("#myModal").modal();
@@ -126,8 +220,12 @@ border:1px solid black;
 
 		// Modal의 Submit 버튼 클릭
 		$("#modalSubmit").click(function() {
-			
-			self.location = "../reserve/reserveRegister?itemNo="+itemName2;
+			if(uid=="null"){ 
+	             alert("로그인이 필요한 항목입니다.","회원 가입 또는 로그인을 해주세요"); 
+	             window.location= "/client/page";
+	             return;
+	          }
+			self.location = "../reserve/reserveRegister?itemNo="+itemArr[1];
 		});
 
 	});
