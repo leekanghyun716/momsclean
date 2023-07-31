@@ -46,7 +46,7 @@ public class ReserveServiceImpl implements ReserveService{
 	}
 
 	@Override
-	public List<Reserve> getDate() throws Exception {
+	public List<String> getDate() throws Exception {
 		// TODO Auto-generated method stub
 		return mapper.getDate();
 	}

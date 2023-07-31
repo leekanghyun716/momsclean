@@ -256,12 +256,11 @@ public class ReserveController {
 	@ResponseBody
 	public List<String> getDisabledDates() throws Exception{
 	    // Your code to retrieve the list of dates to be disabled
-		List<Reserve> reserve = reserveService.getDate();
+		List<String> reserve = reserveService.getDate();
 		List<String> disabledDates = new ArrayList<>();
-		log.info(reserve.get(0).getCleanDate());
 		for(int i=0;i<reserve.size();i++) {
-			Reserve reserve2=reserve.get(i);
-			String[] reserveStr = reserve2.getCleanDate().split("-");
+			String reserve2=reserve.get(i);
+			String[] reserveStr = reserve2.split("-");
 			String[] reserveStr2 = reserveStr[2].split(" ");
 			String[] reserveStr3;
 			if(reserveStr[1].equals("11")||reserveStr[1].equals("12")||reserveStr[1].equals("10")) {
@@ -274,8 +273,12 @@ public class ReserveController {
 			if(integerNumber<10) {
 				String[] reserveStr4=reserveStr2[0].split("0");
 				reserveStr[2]=reserveStr4[1];
+			}else {
+				String reserveStr4=reserveStr2[0];
+				reserveStr[2]=reserveStr4;
 			}
 			String reserveStr5 = reserveStr[0]+"-"+reserveStr[1]+"-"+reserveStr[2];
+			log.info(reserveStr5);
 			disabledDates.add(reserveStr5);
 		}
 	    // Add more dates if needed

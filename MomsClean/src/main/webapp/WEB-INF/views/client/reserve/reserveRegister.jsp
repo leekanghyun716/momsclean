@@ -68,7 +68,7 @@
         text-align: center;
     }
 
-    th {
+    #th {
         background-color: #f2f2f2;
         color: #333;
         font-weight: bold;
@@ -227,7 +227,9 @@
 
 			</tr>
 			<tr id="tr">
-				<td id="td"><form:select path="reserveOptionName6" id="homeOption">
+				<td id="td">
+				<b>옵션선택 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
+				<form:select path="reserveOptionName6" id="homeOption">
 						<c:choose>
 							<c:when test="${empty room}">
 								<form:option path="reserveOptionName6" value="">상품이 없습니다.</form:option>
@@ -337,7 +339,7 @@
 		</table>
 	</form:form>
 	<div class="btn-container">
-		<!-- 구매하기 버튼 추가 -->
+		<!-- 예약하기 버튼 추가 -->
 		<button type="submit" id="btnReserve">예약하기</button>
 		<button type="submit" id="btnList">취소하기</button>
 	</div>
@@ -379,9 +381,6 @@
 		    for (var i = 0; i < date1.length; i++) {
 		    	dateArray.push(date1[i]);
 			}
-		    //alert(arrayOfDates);
-		    //alert(arrayOfDates[0]); // "2023-01-01"
-		    //alert(arrayOfDates[1]); // "2023-01-02"
 		});
 
 
@@ -435,13 +434,6 @@
 			  minDate: new Date(fiveDaysLaterString),
 			  maxDate: new Date(maxDate)
 			});
-
-		
-
-				// AJAX 요청을 보내고 Datepicker 설정을 처리하는 함수
-				function fetchDisabledDatesAndSetupDatepicker() {
-					
-				}
 
 				
 				

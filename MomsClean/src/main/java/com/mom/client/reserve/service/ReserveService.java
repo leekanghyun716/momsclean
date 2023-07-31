@@ -19,7 +19,7 @@ public interface ReserveService {
 
 	public Option getOptionPrice(String itemName);
 	
-	public List<Reserve> getDate() throws Exception;
+	public List<String> getDate() throws Exception;
 	
 	
 	

@@ -96,9 +96,9 @@
 			WHERE item_name = #{itemName}
 			]]>
 	</select>
-	<select id="getDate" resultType="Reserve">
+	<select id="getDate" resultType="String">
 	<![CDATA[
-			SELECT *
+			SELECT DISTINCT clean_date
 FROM (
     SELECT 
         r_no, reserve_no, user_no, user_name, user_id, item_no, reserve_item_name,
@@ -107,8 +107,7 @@ FROM (
         ROW_NUMBER() OVER (PARTITION BY TRUNC(reserve_date) ORDER BY r_no) AS rn
     FROM reserve
 ) ranked
-WHERE rn = 1
-AND TRUNC(clean_date) IN (
+WHERE TRUNC(clean_date) IN (
     SELECT TRUNC(clean_date)
     FROM reserve
     GROUP BY TRUNC(clean_date)
