@@ -452,7 +452,7 @@
 						return;
 					}
 
-					if (!cleanDateValue) {
+					if (cleanDateValue==="클릭해서 청소날짜를 선택해주세요") {
 						alert("청소날짜를 입력해주세요.");
 						return;
 					}
