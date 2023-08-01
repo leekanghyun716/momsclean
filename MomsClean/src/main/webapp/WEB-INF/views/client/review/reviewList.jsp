@@ -15,100 +15,113 @@
 
 <br>
 
-<form:form id="reviewForm" modelAttribute="pgrq" method="get" action="reviewList${pgrq.toUriStringByPage(1)}">
-	<%-- <form:select path="searchType" items="${searchTypeCodeValueList}" itemValue="value" itemLabel="label" /> --%>
-	<span>평점 조회</span>
-	<select name="keyword" id="selectStar" >
-      <option value="0" <c:if test="${keyword eq '0'}">selected</c:if>>별표 선택</option>
-      <option value="1" <c:if test="${keyword eq '1'}">selected</c:if>>★</option>
-      <option value="2" <c:if test="${keyword eq '2'}">selected</c:if>>★★</option>
-      <option value="3" <c:if test="${keyword eq '3'}">selected</c:if>>★★★</option>
-      <option value="4" <c:if test="${keyword eq '4'}">selected</c:if>>★★★★</option>
-      <option value="5" <c:if test="${keyword eq '5'}">selected</c:if>>★★★★★</option>
-	</select>
-	<button type="button" id='searchBtn'><spring:message code="action.search" /></button>
+<div class="container ">
+<form:form id="reviewForm" modelAttribute="pgrq" method="get"
+	action="reviewList${pgrq.toUriStringByPage(1)}">
 	
+	<div class="d-flex justify-content-center align-items-center">
+		<div class="col-sm-2 mx-2">
+		<select class="form-select" aria-label="Default select example" name="keyword" id="selectStar">
+			<option value="0" <c:if test="${keyword eq '0'}">selected</c:if>>별표 선택</option>
+			<option value="1" <c:if test="${keyword eq '1'}">selected</c:if>>★</option>
+			<option value="2" <c:if test="${keyword eq '2'}">selected</c:if>>★★</option>
+			<option value="3" <c:if test="${keyword eq '3'}">selected</c:if>>★★★</option>
+			<option value="4" <c:if test="${keyword eq '4'}">selected</c:if>>★★★★</option>
+			<option value="5" <c:if test="${keyword eq '5'}">selected</c:if>>★★★★★</option>
+		</select>
+		</div>
+		<button type="button" class="btn btn-primary col-sm-1" id='searchBtn'>
+			<spring:message code="action.search" />
+		</button>
+	</div>
+
 </form:form>
 
-
 <br>
-<table border="1">
-	<tr>
-		<th align="center" width="80"><spring:message code="review.no" /></th>
-		<th align="center" width="180"><spring:message
-				code="review.grade" /></th>
-		<th align="center" width="320"><spring:message
-				code="review.content" /></th>
-		<th align="center" width="180"><spring:message code="review.date" /></th>
-	</tr>
-	<c:choose>
-		<c:when test="${empty list}">
-			<tr>
-				<td colspan="4"><spring:message code="common.listEmpty" /></td>
+
+	<table class="table table-hover w-75">
+		<thead>
+			<tr align="center">
+				<th scope="col"><spring:message code="review.no" /></th>
+				<th scope="col"><spring:message code="review.grade" /></th>
+				<th scope="col"><spring:message code="review.content" /></th>
+				<th scope="col"><spring:message code="review.date" /></th>
 			</tr>
-		</c:when>
-		<c:otherwise>
+		</thead>
+		<tbody class="table-group-divider">
+			<c:choose>
+				<c:when test="${empty list}">
+					<tr>
+						<td colspan="4"><spring:message code="common.listEmpty" /></td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<c:forEach items="${list}" var="review" varStatus="status">
+						<tr>
 
-			<c:forEach items="${list}" var="review" varStatus="status">
-
-				<tr>
-				<tr>
-					<td align="center">${count+ status.index + 1 }</td>
-					<td align="center"><c:choose>
-							<c:when test="${review.reviewGrade == 1}">★</c:when>
-							<c:when test="${review.reviewGrade == 2}">★★</c:when>
-							<c:when test="${review.reviewGrade == 3}">★★★</c:when>
-							<c:when test="${review.reviewGrade == 4}">★★★★</c:when>
-							<c:when test="${review.reviewGrade == 5}">★★★★★</c:when>
-							<c:otherwise>Unknown</c:otherwise>
-						</c:choose></td>
-
-
-					<!-- 게시글 상세보기할 때 페이징 요청 정보를 매개변수로 전달한다. -->
-					<td align="left"><a
-						href="/client/review/reviewDetail${pagination.makeQuery(pagination.pageRequest.page)}&reviewNo=${review.reviewNo}">
-							${fn:substring(review.reviewContent, 0, 20)} </a></td>
-
-
-					<td align="center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-							value="${review.reviewDate}" /></td>
-				</tr>
+							<td align="center">${count+ status.index + 1 }</td>
+							<td align="center"><c:choose>
+									<c:when test="${review.reviewGrade == 1}">★</c:when>
+									<c:when test="${review.reviewGrade == 2}">★★</c:when>
+									<c:when test="${review.reviewGrade == 3}">★★★</c:when>
+									<c:when test="${review.reviewGrade == 4}">★★★★</c:when>
+									<c:when test="${review.reviewGrade == 5}">★★★★★</c:when>
+									<c:otherwise>Unknown</c:otherwise>
+								</c:choose></td>
 
 
+							<!-- 게시글 상세보기할 때 페이징 요청 정보를 매개변수로 전달한다. -->
+							<td align="center"><a
+								href="/client/review/reviewDetail${pagination.makeQuery(pagination.pageRequest.page)}&reviewNo=${review.reviewNo}">
+									${fn:substring(review.reviewContent, 0, 20)} </a></td>
 
-			</c:forEach>
-		</c:otherwise>
-	</c:choose>
-</table>
+
+							<td align="center"><fmt:formatDate
+									pattern="yyyy-MM-dd HH:mm:ss" value="${review.reviewDate}" /></td>
+						</tr>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+		</tbody>
+	</table>
+
 
 <!-- 페이징 네비게이션 -->
-<div>
-	<c:if test="${pagination.prev}">
-		<a href="${pagination.startPage - 1}">&laquo;</a>
-	</c:if>
+<div class="d-flex justify-content-center">
+	<nav aria-label="Page navigation example">
+		<ul class="pagination">
+			<li class="page-item"><c:if test="${pagination.prev}">
+					<a class="page-link" href="${pagination.startPage - 1}" aria-label="Previous"> 
+					<span aria-hidden="true">&laquo;</span>
+					</a>
+				</c:if></li>
+				
+			<c:forEach begin="${pagination.startPage }" end="${pagination.endPage }" var="idx">
+				<li class="page-item">
+				<a class="page-link" href="/client/review/reviewList${pagination.makeQuery(idx)}">${idx}</a>
+				</li>
+			</c:forEach>
 
-	<c:forEach begin="${pagination.startPage }"
-		end="${pagination.endPage }" var="idx">
-		<a href="/client/review/reviewList${pagination.makeQuery(idx)}">${idx}</a>
-	</c:forEach>
-
-	<c:if test="${pagination.next && pagination.endPage > 0}">
-		<a href="${pagination.endPage + 1}">&raquo;</a>
-	</c:if>
+			<li class="page-item"><c:if test="${pagination.next && pagination.endPage > 0}">
+					<a class="page-link" href="${pagination.endPage + 1}" aria-label="Next"> 
+					<span aria-hidden="true">&raquo;</span>
+					</a>
+				</c:if></li>
+		</ul>
+	</nav>
 </div>
 
-
-<div>
-	<button type="button" id="btnWrite">
+	<button type="button" class="btn btn-primary" id="btnWrite">
 		<spring:message code="review.write" />
 	</button>
+
 </div>
 
 <script>
 	var result = "${msg}";
 	if (result === "SUCCESS") {
 		alert("<spring:message code='review.registerSuccess' />")
-	
+
 	};
 </script>
 
@@ -119,31 +132,28 @@
 			if ($("#selectStar option:selected").val() == 0) {
 				alert("평점을 선택해주세요.");
 				return;
-			}else{
+			} else {
 				var formObj = $("#reviewForm");
-				formObj.submit();	
+				formObj.submit();
 			}
 		});
-		
-		
-		$("#btnWrite").on("click", function(event){
+
+		$("#btnWrite").on("click", function(event) {
 			$.ajax({
-			  url: "/client/review/checkRegister",
-			  contentType: "application/json; charset=UTF-8",
-			  type: "get",
-			  success: function(data){
-				  
-				  
-				  
-				  if(data == "SUCCESS"){
-					  alert("글 쓰기 권한이 없습니다!!!");
-					 
-				 }else{
-					 location.href = "/client/review/reviewRegister";
-				 } 
-			  }
+				url : "/client/review/checkRegister",
+				contentType : "application/json; charset=UTF-8",
+				type : "get",
+				success : function(data) {
+
+					if (data == "SUCCESS") {
+						alert("글 쓰기 권한이 없습니다!!!");
+
+					} else {
+						location.href = "/client/review/reviewRegister";
+					}
+				}
 			});
 		});
-		
+
 	});
 </script>

@@ -5,43 +5,57 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<!--<input value="${serviceName1}" type="hidden" id="serviceValue" />  -->
 
-<h2>
-	<spring:message code="review.register" />
-</h2>
-<form:form id="reviewForm" modelAttribute="review"
-	action="reviewRegister">
-	<form:hidden path="reserveNo" value="${review.reserveNo}" />
-	<form:hidden path="userNo" value="${review.userNo}" />
-	<table>
-		<tr>
-			<td><spring:message code="review.serviceName" /> &nbsp;&nbsp;</td>
-			<td>${serviceName} SET</td>
-			<td><font color="red"></font></td>
-		</tr>
-		<tr>
-			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spring:message code="review.grade" /></td>
-			<td><form:radiobutton path="reviewGrade" value="1" />★ 
-			<form:radiobutton path="reviewGrade" value="2" />★★ 
-			<form:radiobutton path="reviewGrade" value="3" />★★★ 
-			<form:radiobutton path="reviewGrade" value="4" />★★★★ 
-			<form:radiobutton path="reviewGrade" value="5" />★★★★★</td>
-			<td><font color="red"><form:errors path="reviewGrade" /></font></td>
-		</tr>
-		<tr>
-			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spring:message code="review.content" /><br>(400자 제한)</td>
-			<td><form:textarea path="reviewContent" rows="20" cols="80"
-					id="reviewContent" /></td>
-			<td><font color="red"><form:errors path="reviewContent" /></font></td>
-		</tr>
-	</table>
-</form:form>
+<div class="container">
+	<form:form id="reviewForm" modelAttribute="review"
+		action="reviewRegister">
+		<form:hidden path="reserveNo" value="${review.reserveNo}" />
+		<form:hidden path="userNo" value="${review.userNo}" />
 
-<div>
-	<button type="submit" id="btnRegister">
-		<spring:message code="review.save" />
-	</button>
+		<table class="table w-75">
+			<thead>
+				<th colspan="2" class="text-center p-3">
+					<h2>
+						<spring:message code="review.register" />
+					</h2>
+				</th>
+			</thead>
+			<tbody class="table-group-divider">
+				
+				<tr>
+					<td class="w-25 p-3"><spring:message code="review.serviceName" /></td>
+					<td class="p-3">${serviceName}SET</td>
+				</tr>
+				
+				<tr>
+					<td class="w-25 p-3"><spring:message code="review.grade" /></td>
+					<td class="p-3">
+						<div class="d-flex align-items-center">
+						<form:radiobutton class="form-check-input" path="reviewGrade" value="1" /><span class="fs-5">★ &nbsp;</span> 
+						<form:radiobutton class="form-check-input" path="reviewGrade" value="2" /><span class="fs-5">★★ &nbsp;</span> 
+						<form:radiobutton class="form-check-input" path="reviewGrade" value="3" /><span class="fs-5">★★★ &nbsp;</span> 
+						<form:radiobutton class="form-check-input" path="reviewGrade" value="4" /><span class="fs-5">★★★★ &nbsp;</span> 
+						<form:radiobutton class="form-check-input" path="reviewGrade" value="5" /><span class="fs-5">★★★★★ &nbsp;</span> 
+						</div> 
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="w-25" valign="middle">
+					<spring:message code="review.content" /><br>(400자 제한)</td>
+					<td class="w-75"><form:textarea path="reviewContent" rows="20"
+							cols="100" id="reviewContent" /></td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</form:form>
+
+	<div>
+		<button type="submit" class="btn btn-primary col-sm-1" id="btnRegister">
+			<spring:message code="review.save" />
+		</button>
+	</div>
 </div>
 
 <script>
