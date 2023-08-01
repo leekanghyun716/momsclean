@@ -11,7 +11,7 @@
 		<spring:message code="auth.header.login" />
 	</h2>
 	<form action="login" method="post">
-		<!-- 수정된 부분 -->
+		
 		<table>
 			<tr>
 				<td><label for="username">아이디:</label></td>
@@ -24,12 +24,19 @@
 			
 			<tr>
 				<td colspan="2" align="center"><button type="button" id="sub">
-						<!-- 수정된 부분 -->
+						
 						<spring:message code="action.login" />
 					</button></td>
 			</tr>
 		</table>
 	</form>
+	
+	  <!-- 아이디/비밀번호 찾기 링크 -->
+    <p><a href="/client/login/findId">아이디/비밀번호 찾기</a></p>
+    <!-- 회원가입 링크 -->
+    <p><a href="/client/user/agreement">회원가입</a></p>
+    
+    
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
         // 페이지가 로드된 후 실행될 함수

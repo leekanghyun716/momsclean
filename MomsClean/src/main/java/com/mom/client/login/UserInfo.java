@@ -10,5 +10,7 @@ import lombok.ToString;
 public class UserInfo {
     private String userId;
     private String userPw;
+	public String userName;
+	public String userEmail;
     
 }

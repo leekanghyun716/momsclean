@@ -27,7 +27,7 @@
 </head>
 <body>
     <h2>약관 동의</h2>
-    <form action="/user/agreement" method="post" onsubmit="return checkAgreement();">
+    <form action="/client/user/agreement" method="post" onsubmit="return checkAgreement();">
         <!-- 첫 번째 약관 -->
         <div class="agreement-content">
             <p><strong>서비스 이용 약관</strong></p>
@@ -97,7 +97,15 @@
         <input type="submit" value="다음">
     </form>
     <br>
-    <button onclick="window.history.back();">돌아가기</button>
+     <!-- 돌아가기 버튼 -->
+    <button onclick="goToLoginPage();">돌아가기</button>
+
+    <script>
+        // 로그인 페이지로 이동하는 함수
+        function goToLoginPage() {
+            window.location.href = "/client/login/login";
+        }
+    </script>
 </body>
 </html>
 
