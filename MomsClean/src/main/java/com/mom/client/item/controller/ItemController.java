@@ -42,103 +42,10 @@ public class ItemController {
 	public void list(Model model) throws Exception {
 		// 뷰에 페이징 처리를 한 게시글 목록을 전달한다.
 		List<Item> list = service.list();
-		Integer iNo = list.size();
-		String iNoString = Integer.toString(iNo);
 		
-		log.info(service.getPicture2(list.get(0).getItemNo()));
 		model.addAttribute("list", service.list());
 	}
 
-	@ResponseBody
-	@RequestMapping("/display")
-	public ResponseEntity<byte[]> displayFile(String itemNo) throws Exception {
-		InputStream in = null;
-		ResponseEntity<byte[]> entity = null;
-		String fileName = service.getPicture(itemNo);
-		log.info(uploadPath + File.separator + fileName);
-		try {
-			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
-			MediaType mType = getMediaType(formatName);
-			HttpHeaders headers = new HttpHeaders();
-			log.info(uploadPath + File.separator + fileName);
-			in = new FileInputStream(uploadPath + File.separator + fileName);
-			if (mType != null) {
-				headers.setContentType(mType);
-			}
-			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
-		} finally {
-			in.close();
-		}
-		return entity;
-	}
 	
-	@ResponseBody
-	@RequestMapping("/display2")
-	public ResponseEntity<byte[]> displayFile2(String itemNo) throws Exception {
-		InputStream in = null;
-		ResponseEntity<byte[]> entity = null;
-		String fileName = service.getPicture2(itemNo);
-		log.info(uploadPath + File.separator + fileName);
-		try {
-			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
-			MediaType mType = getMediaType(formatName);
-			HttpHeaders headers = new HttpHeaders();
-			log.info(uploadPath + File.separator + fileName);
-			in = new FileInputStream(uploadPath + File.separator + fileName);
-			if (mType != null) {
-				headers.setContentType(mType);
-			}
-			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
-		} finally {
-			in.close();
-		}
-		return entity;
-	}
-	@ResponseBody
-	@RequestMapping("/display3")
-	public ResponseEntity<byte[]> displayFile3() throws Exception {
-		InputStream in = null;
-		ResponseEntity<byte[]> entity = null;
-		String fileName = "/option/option.png";
-		log.info(uploadPath + File.separator + fileName);
-		try {
-			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
-			MediaType mType = getMediaType(formatName);
-			HttpHeaders headers = new HttpHeaders();
-			log.info(uploadPath + File.separator + fileName);
-			in = new FileInputStream(uploadPath + File.separator + fileName);
-			if (mType != null) {
-				headers.setContentType(mType);
-			}
-			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
-		} finally {
-			in.close();
-		}
-		return entity;
-	}
-
-	private MediaType getMediaType(String formatName) {
-		if (formatName != null) {
-			if (formatName.equals("JPG")) {
-				return MediaType.IMAGE_JPEG;
-			}
-			if (formatName.equals("GIF")) {
-				return MediaType.IMAGE_GIF;
-			}
-			if (formatName.equals("PNG")) {
-				return MediaType.IMAGE_PNG;
-			}
-		}
-		return null;
-	}
 
 }

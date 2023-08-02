@@ -10,6 +10,7 @@ import com.mom.client.item.mapper.ItemMapper;
 
 @Service
 public class ItemServiceImpl implements ItemService{
+	
 	@Autowired
 	private ItemMapper mapper;
 	
@@ -25,4 +26,5 @@ public class ItemServiceImpl implements ItemService{
 	public String getPicture2(String itemNo) throws Exception {
 	return mapper.getPicture2(itemNo);
 	}
+	
 }
