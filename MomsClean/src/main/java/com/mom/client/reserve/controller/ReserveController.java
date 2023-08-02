@@ -60,7 +60,6 @@ public class ReserveController {
 		List<Option> smart = new ArrayList<Option>();
 		List<Option> home = new ArrayList<Option>();
 		List<Option> room = new ArrayList<Option>();
-		log.info(option.get(0).getItemName());
 		for (Option list : option) {
 			String nang = list.getItemName();
 			String[] list2 = nang.split(" ");
