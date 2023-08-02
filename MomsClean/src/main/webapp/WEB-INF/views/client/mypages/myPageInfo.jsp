@@ -3,20 +3,26 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500&display=swap');
 
- @font-face {
-    font-family: 'IBM Plex Sans KR', sans-serif;
+
+ 
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500&display=swap');
+
+  @font-face {
+      font-family: 'IBM Plex Sans KR', sans-serif;
     
-}
+       }
+
+
  .modalSubmit {
         font-family: 'IBM Plex Sans KR', sans-serif;
-        background-color: #00BFFF;
+        background-color: #3CA0E1;
         color: #fff;
         border: solid 1px grey;
         cursor: pointer;
-        font-size: 12px;
+        font-size: 10px;
         margin-right: 10px;
         border-radius: 5px;
         padding: 10px 20px;
@@ -26,10 +32,12 @@
         font-family: 'IBM Plex Sans KR', sans-serif;
         background-color: #0056b3;
     }
+ 
     
    
  </style>
- 
+
+<body>
 <div align="center">
 	<br>
 	

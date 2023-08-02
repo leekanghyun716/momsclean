@@ -14,7 +14,7 @@
 }
  .modalSubmit {
         font-family: 'IBM Plex Sans KR', sans-serif;
-        background-color: #00BFFF;
+        background-color: #3CA0E1;
         color: #fff;
         border: solid 1px grey;
         cursor: pointer;
