@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mom.client.mapper.NoticeMapper;
 import com.mom.client.notice.Notice;
 import com.mom.client.notice.PageRequest3;
+import com.mom.client.notice.mapper.NoticeMapper;
 
 @Service
 public class NoticeServiceImpl implements NoticeService{
