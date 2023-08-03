@@ -39,6 +39,8 @@
 		WHERE user_id = #{userId} 
 		AND 
 		user_pw = #{userPw}
+		 AND
+    user_division != '탈퇴'
 	</select>
 	
 	<!-- 기존 매퍼에 아래의 쿼리를 추가합니다. -->

@@ -3,15 +3,44 @@
 <html>
 <head>
     <title>약관 동의</title>
-    <style>
-        /* 약관 내용을 담을 div 영역의 스타일 */
-        .agreement-content {
-            max-height: 150px; /* 최대 높이를 설정하여 스크롤이 나타날 기준을 정합니다. */
-            overflow-y: auto; /* 스크롤 기능을 추가합니다. */
-            margin-bottom: 10px; /* 약관 간의 간격을 조정합니다. */
-        }
-    </style>
+   <style>
+    /* 약관 내용을 담을 div 영역의 스타일 */
+    .agreement-content {
+        max-height: 150px; /* 최대 높이를 설정하여 스크롤이 나타날 기준을 정합니다. */
+        overflow-y: auto; /* 스크롤 기능을 추가합니다. */
+        margin-bottom: 10px; /* 약관 간의 간격을 조정합니다. */
+        border: 1px solid #a2c3db; /* 테두리 스타일을 연한 파란색으로 변경 */
+        padding: 10px; /* 내용과 테두리 사이의 여백을 조정합니다. */
+        background-color: #f7f7f7; /* 연한 회색 배경색을 설정합니다. */
+    }
+
+    /* 체크박스 스타일 */
+    input[type="checkbox"] {
+        margin-right: 5px;
+    }
+
+    /* 버튼 스타일 */
+    .light-blue-button {
+         background-color: #007BFF;
+        color: #fff;
+        border: 2px solid #a2c3db; /* 버튼의 테두리를 파란색으로 설정합니다. */
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    /* 버튼 마우스 오버 효과 */
+    .light-blue-button:hover {
+        background-color: #a2c3db; /* 파스텔 파란색으로 변경 */
+        border-color: #d9e1e7; /* 테두리 색상을 연한 파란색으로 변경 */
+        box-shadow: 0 0 5px #007BFF; /* 파스텔 파란색으로 변경 */
+    }
+</style>
     <script>
+    
+    function goToLoginPage() {
+        window.location.href = "/client/login/login";
+    }
         function checkAgreement() {
             var agreement1 = document.getElementById("agreement1");
             var agreement2 = document.getElementById("agreement2");
@@ -53,7 +82,16 @@
             <p>제7조 (책임의 제한)</p>
             <p>회사는 무료로 제공하는 서비스와 관련하여 어떠한 손해에 대해서도 책임을 지지 않습니다.</p>
         </div>
-
+		
+		
+		 <!-- 약관 동의 체크박스 -->
+        <label>
+            <input type="checkbox" id="agreement1" name="agreement1">
+            서비스 이용 약관에 동의합니다.
+        </label>
+        <br>
+        
+        
         <!-- 두 번째 약관 -->
         <div class="agreement-content">
             <p><strong>개인정보 수집 및 이용 동의</strong></p>
@@ -83,22 +121,19 @@
             <p>전화번호: [회사 전화번호]</p>
         </div>
 
-      <!-- 약관 동의 체크박스 -->
-        <label>
-            <input type="checkbox" id="agreement1" name="agreement1">
-            서비스 이용 약관에 동의합니다.
-        </label>
-        <br>
+     
         <label>
             <input type="checkbox" id="agreement2" name="agreement2">
             개인정보 수집 및 이용 동의에 동의합니다.
         </label>
         <br>
-        <input type="submit" value="다음">
+        
+      <!-- 버튼 영역 -->
+        <span>
+            <input type="submit" value="다음" class="light-blue-button">
+            <button onclick="goToLoginPage();" class="light-blue-button" type="button">돌아가기</button>
+        </span>
     </form>
-    <br>
-     <!-- 돌아가기 버튼 -->
-    <button onclick="goToLoginPage();">돌아가기</button>
 
     <script>
         // 로그인 페이지로 이동하는 함수
