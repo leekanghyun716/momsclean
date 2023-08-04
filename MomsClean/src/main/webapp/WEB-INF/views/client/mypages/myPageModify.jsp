@@ -41,33 +41,32 @@
 
 	<tr>
 		<td><spring:message code="mypage.userId"/></td>
-		<td><form:input path="userId" readonly ="true" /></td>
-		
-		
+		<td><form:input path="userId"  disabled="true"/></td>	
 	</tr>
+	
 	<tr>
 		<td><spring:message code="mypage.userPw"/></td>
-		<td><form:input path="userPw" id="pwd"/> </td>
-		
-		
+		<td><form:input type="password" path="userPw" id="userPw"/> </td>
 	</tr>
+	
+	<tr>
+		<td><spring:message code="mypage.confirmPw"/></td>
+		<td><input type="password" id="confirmPw"/></td>
+	</tr>
+	
 	<tr>
 		<td><spring:message code="mypage.userName"/></td>
-		<td><form:input path="userName" id="name" /></td>
-		
-		
+		<td><form:input path="userName" id="name" /></td>	
 	</tr>
+	
 	<tr>
 		<td><spring:message code="mypage.userPhone"/></td>
-		<td><form:input path="userPhone" id="phone" /></td>
-		
-		
+		<td><form:input path="userPhone" id="phone" /></td>		
 	</tr>
+	
 	<tr>
 		<td><spring:message code="mypage.userEmail"/></td>
 		<td><form:input path="userEmail" id="email" /></td>
-		
-		
 	</tr>
 	
 	<tr>
@@ -92,20 +91,39 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 <script>
 	$(document).ready(function() {
 		var formObj = $("#mypage");
 		
 		$("#btnModifyComplete").on("click", function() {
+			var userPw = $("#userPw").val();
+			var confirmPw = $("#confirmPw").val();
+			var name = $("#name").val();
+			var phone = $("#phone").val();
+			var email = $("#email").val();
 			
-			if(confirm("내 정보를 수정하시겠습니까?")){
+			var regex1 = /^(?=.*[a-zA-Z0-9])[a-zA-Z0-9!@#%^&*]{4,12}$/;
+			
+			if(userPw.length == 0 || userPw == ""){
+				alert("패스워드는 필수 입력 사항입니다.");
+			}else if(!regex1.test(userPw)){
+				alert("올바른 형식의 패스워드를 입력해주세요.");
+			}else if(confirmPw.length == 0 || confirmPw ==""){
+				alert("패스워드 확인을 위해 재입력해주세요");
+			}else if(userPw !== confirmPw){
+				alert("패스워드가 일치하지 않습니다.");
+			}else if(name.length == 0 || name ==""){
+				alert("이름 입력은 필수입니다.");
+			}else if(phone.length == 0 || phone == ""){
+				alert("전화번호 입력은 필수입니다.");
+			}else if(email.length == 0 || email == ""){
+				alert("이메일 입력은 필수입니다.");	
+			}else{
 				formObj.submit();
-				alert("수정이 완료되었습니다.");	
-			}else {
-				
-			} 
-			
-
+				alert("내정보 수정이 완료되었습니다.");
+			}
 	});
 	    $("#btnGoback").on("click", function() {
 		    window.location = "/client/mypages/myPageInfo";

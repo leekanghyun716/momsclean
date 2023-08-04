@@ -8,7 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mom.client.mypage.Mypage;
+import com.mom.client.mypage.PageRequest1;
 import com.mom.client.mypage.ReserveInfo;
 import com.mom.client.mypage.mapper.MypageMapper;
 
@@ -42,8 +42,8 @@ import com.mom.client.mypage.mapper.MypageMapper;
 	
 	//예약 전체 건수를 반환
 	@Override
-	public int count() throws Exception {
-		return mapper.count();
+	public int count(String userId) throws Exception {
+		return mapper.count(userId);
 	}
 	
 	

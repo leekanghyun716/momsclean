@@ -1,18 +1,11 @@
 package com.mom.client.mypage.controller;
 
-
-
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mom.client.login.UserInfo;
 import com.mom.client.mypage.Mypage;
-import com.mom.client.mypage.PageRequest;
-import com.mom.client.mypage.Pagination;
+import com.mom.client.mypage.PageRequest1;
+import com.mom.client.mypage.Pagination1;
 import com.mom.client.mypage.service.MypageInfoService;
 import com.mom.client.mypage.service.MypageReserveInfoService;
+import com.mom.client.review.PageRequest;
+import com.mom.client.review.Pagination;
 
 import lombok.extern.java.Log;
 
@@ -33,10 +28,12 @@ import lombok.extern.java.Log;
 public class MypageController {
 
 	@Autowired
-	MypageInfoService infoservice;
+	private MypageInfoService infoservice;
 	
 	@Autowired
-	MypageReserveInfoService reserveservice;
+	private MypageReserveInfoService reserveservice;
+	
+
 
 	//내정보 보기 페이지 
 	@RequestMapping(value="/myPageInfo", method=RequestMethod.GET)
@@ -116,29 +113,24 @@ public class MypageController {
        
 }	 
 		
-	
-		
-		
-		
-		
-	
 	// 예약현황 리스트
 	@RequestMapping(value = "/myPageReserveList", method = RequestMethod.GET)
-	public void ListForm(Model model, HttpServletRequest request, @ModelAttribute("pgrq") PageRequest pageRequest) throws Exception {
+	public void ListForm(Model model, HttpServletRequest request, @ModelAttribute("pgrq") PageRequest1 pageRequest) throws Exception {
 		
-          HttpSession Session = request.getSession(); 
-        
-        UserInfo userInfo = (UserInfo) Session.getAttribute("user");
-        
-        if(userInfo != null) {
-        	 String userId = userInfo.getUserId();  
-        	 	
+		
+		  HttpSession Session = request.getSession();
+		  
+		  UserInfo userInfo = (UserInfo) Session.getAttribute("user");
+		  
+		  if(userInfo != null) { String userId = userInfo.getUserId();
+		 
         	 model.addAttribute("list" , reserveservice.list(userId, pageRequest.getPage(), pageRequest.getSizePerPage()));
         	 
-        	 Pagination pagination = new Pagination();
+        	 Pagination1 pagination = new Pagination1();
         	 pagination.setPageRquest(pageRequest);
-        	 pagination.setTotalCount(reserveservice.count());
+        	 pagination.setTotalCount(reserveservice.count(userInfo.getUserId()));
         	 model.addAttribute("pagination", pagination);
+        	 log.info(Integer.toString(pagination.getEndPage()));
 	}		
 }
 	
@@ -173,7 +165,6 @@ public class MypageController {
 
 	}
 
-	
 	//로그아웃
 	@RequestMapping(value="/logoutSuccess", method=RequestMethod.GET)
 	public String logout(HttpServletRequest request) throws Exception{

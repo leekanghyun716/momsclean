@@ -10,7 +10,7 @@
 
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500&display=swap');
 
-  @font-face {
+  .font{
       font-family: 'IBM Plex Sans KR', sans-serif;
     
        }
@@ -55,13 +55,13 @@
 
 			<tr>
 				<td><spring:message code="mypage.userId" /></td>
-				<td><form:input path="userId" readonly="true" id="userId"/></td>
+				<td><form:input path="userId" readonly="true" id="userId" /></td>
 
 
 			</tr>
 			<tr>
 				<td><spring:message code="mypage.userPw" /></td>
-				<td><form:input path="userPw" readonly="true" /></td>
+				<td><form:input type="password" path="userPw" readonly="true" /></td>
 
 
 			</tr>

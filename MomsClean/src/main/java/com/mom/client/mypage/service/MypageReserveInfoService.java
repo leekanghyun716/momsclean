@@ -2,8 +2,7 @@ package com.mom.client.mypage.service;
 
 import java.util.List;
 
-import com.mom.client.mypage.Mypage;
-import com.mom.client.mypage.PageRequest;
+import com.mom.client.mypage.PageRequest1;
 import com.mom.client.mypage.ReserveInfo;
 
 public interface MypageReserveInfoService {
@@ -22,7 +21,7 @@ public interface MypageReserveInfoService {
 	
 	
 	//게시글 전체 건수를 반환
-	public int count() throws Exception;
+	public int count(String userId) throws Exception;
 	
 	//회원탈퇴
 	public void withdraw(String userId) throws Exception;

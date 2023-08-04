@@ -58,10 +58,11 @@
 
     /* Slide Buttons */
     button {
+    
         background-color: #007bff;
         color: #fff;
         border: none;
-        font-size: 20px;
+        font-size: 1px;
         cursor: pointer;
         padding: 10px 20px;
         margin: 10px;
@@ -71,21 +72,41 @@
 
     button:hover {
         background-color: #0056b3;
-    }
+    } 
     
+    .slider1{
+            max-width:2000px;
+             } 
+    .slider1 img {
+            width: 1500px;
+            height: 600px;} 
 </style>
-
-
-
-
 </head>
+
 <body>
+<!-- 메인페이지 이미지 슬라이드 -->
+<div class="slider1">
+  <div><img src="/img/greeting/img9.jpg" alt="Image 1"></div>
+  <div><img src="/img/greeting/img10.jpg" alt="Image 2"></div>
+  <div><img src="/img/greeting/img11.jpg" alt="Image 3"></div>
+</div>
+<!-- 메인페이지 이미지 자동 슬라이드 script -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script>
+$(document).ready(function(){
+  $('.slider1').slick({
+    autoplay: true,          // 자동 슬라이드 활성화
+    autoplaySpeed: 5000,     // 슬라이드 간 시간 간격 (밀리초)
+    dots: false,              // 하단에 점(닷) 표시
+    arrows: false,           // 좌우 화살표 숨김
+  });
+});
+</script>
 
-	<div align="center">
-		<img src="../image/img1.jpg">
-	</div>
 
-
+<!-- 리뷰게시글 슬라이드 -->
 	<div align="center" class="slider-container">
     <button id="prev">&lang;</button>
     <div class="slider">
@@ -144,14 +165,8 @@
     <button id="next">&rang;</button>
 </div>
 
-
-
-
-
-
-
+<!-- 리뷰게시글 슬라이드 script-->
 	<script>
-	
     var sliderIndex = 0;
     showSlide(sliderIndex);
 

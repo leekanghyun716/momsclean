@@ -7,7 +7,6 @@
 
 <style>
 
-
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500&display=swap');
 
  @font-face {
@@ -78,7 +77,7 @@
 				<td><form:input path="reserveState" readonly="true" /></td>
 			</tr>
 			<tr>
-				<td align="center"><spring:message code="mypage.completionStatus" /></td>
+				<td align="center"><spring:message code="mypage.cleanDone" /></td>
 				<td><form:input path="cleanDone" id="cleandone" readonly="true" /></td>
 
 			</tr>
@@ -109,9 +108,9 @@
 		if (cleandoneValue === "Y" || reserveRequest === "취소요청" || reserveRequest === "취소완료") {
 			
 			$("#btnCancel").prop("disabled", true);
-			alert("해당 예약건은 이미 예약취소신청을 하셨거나, 청소가 완료된건이므로 취소요청이 불가합니다.");
+			alert("해당 예약건은 이미 예약취소신청을 하셨거나 취소완료 또는 이미 청소가 완료된건이므로 취소요청이 불가합니다.");
 		}else {
-			$("#btnCancel").prop("disabled", false);
+			$("#btnCancel").prop("disabled",  false);
 		}
 	});
 	$("#btnAddReserve").on("click", function(){

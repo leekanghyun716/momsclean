@@ -78,8 +78,11 @@
         
         
         }
-	  
-        
+	  .service-image{
+	    width : 700px;}
+       
+     .value-image{
+         width: 700px;}
     
         
         
@@ -128,7 +131,7 @@
     <tr>
       <td>
         <div class="value-item">
-          <img src="images/mom_cleaning.jpg" alt="청소하는 엄마" class="value-image">
+          <img src="/img/greeting/img2.jpg" alt="청소하는 엄마" class="value-image">
           <p>말보다는 항상 행동으로 보여주는 엄마같은 느낌이 나는 정직한 기업입니다.</p>
         </div>
       </td>
@@ -136,7 +139,7 @@
     <tr>
       <td>
         <div class="value-item">
-          <img src="images/family_discussion.jpg" alt="가족과 대화하는 모습" class="value-image">
+          <img src="/img/greeting/img3.jpg" alt="가족과 대화하는 모습" class="value-image">
           <p>엄마의 마음으로 항상 고객과 소통하면서 발전해가는 기업입니다.</p>
         </div>
       </td>
@@ -144,7 +147,7 @@
     <tr>
       <td>
         <div class="value-item">
-          <img src="image/gu" alt="엄마가 아들을 안아주는 모습" class="value-image">
+          <img src="/img/greeting/img4.jpg" alt="엄마가 아들을 안아주는 모습" class="value-image">
           <p>좁은 대나무 속을 바라보는 것이 아닌 항상 엄마처럼 넓은 바다를 보는 미래지향적인 기업입니다.</p>
         </div>
       </td>
@@ -158,7 +161,7 @@
     <tr>
       <td>
         <div class="service-item">
-          <img src="images/clean_place1.jpg" alt="깨끗한 장소" class="service-image">
+          <img src="/img/greeting/img7.jpg" alt="깨끗한 장소" class="service-image">
           <p>효율적인 전문 도구 사용으로 고객의 눈을 만족시켜드리겠습니다.</p>
         </div>
       </td>
@@ -166,7 +169,7 @@
     <tr>
       <td>
         <div class="service-item">
-          <img src="images/clean_place2.jpg" alt="깨끗한 장소" class="service-image">
+          <img src="/img/greeting/img6.jpg" alt="깨끗한 장소" class="service-image">
           <p>효율적인 전문 도구 사용으로 고객의 눈을 만족시켜드리겠습니다.</p>
         </div>
       </td>
